@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const { heroRounter } = require("./routes");
 const { morgan, defaultError, errorCatcher } = require("./middlewares");
 
 const app = express();

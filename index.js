@@ -1,5 +1,7 @@
 const app = require("./app");
 const mongoose = require("mongoose");
+const { Category, ItemType } = require("./app/model");
+const fs = require("fs/promises");
 require("dotenv").config();
 
 const { PORT, DB_INFO } = process.env;
@@ -12,8 +14,9 @@ app.listen(Number(PORT), () => {
 
 mongoose.set("strictQuery", false);
 mongoose
+  .set("debug", true)
   .connect(DB_INFO)
-  .then(() => {
+  .then(async () => {
     console.log("Database connected");
   })
   .catch((err) => {
