@@ -25,6 +25,10 @@ const ItemSchema = new Schema({
   image: {
     type: ImageSchema,
   },
+  price: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = model("item", ItemSchema);

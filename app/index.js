@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { morgan, defaultError, errorCatcher } = require("./middlewares");
-const { brandRouter, itemRouter } = require("./routers");
+const { brandRouter, itemRouter, serviceRouter } = require("./routers");
 
 const app = express();
 
@@ -10,6 +10,8 @@ app.use(morgan.morganLogger(morgan.morganSetup));
 app.use(express.json());
 app.use("/api/brand", brandRouter);
 app.use("/api/item", itemRouter);
+
+app.use("/api/service", serviceRouter);
 
 app.use("/", defaultError);
 app.use("/", errorCatcher);

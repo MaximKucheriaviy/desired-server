@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
     const { name, brand, category, type } = req.body;
     const result = await createItem({
       name,
+      price,
       brand,
       category,
       type,
