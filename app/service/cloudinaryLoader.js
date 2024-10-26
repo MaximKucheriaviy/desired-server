@@ -16,7 +16,6 @@ const upload = async (filePath) => {
     const result = await cloudinary.uploader.upload(
       path.resolve(__dirname, filePath)
     );
-
     await fs.unlink(filePath);
     return result;
   } catch (err) {

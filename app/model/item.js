@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const brand = require("./brand");
+const ImageSchema = require("./ImageSchema");
 
 const ItemSchema = new Schema({
   name: {
@@ -13,6 +13,17 @@ const ItemSchema = new Schema({
   brand: {
     type: Schema.Types.ObjectId,
     ref: "brand",
+  },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+  },
+  type: {
+    type: Schema.Types.ObjectId,
+    ref: "itemType",
+  },
+  image: {
+    type: ImageSchema,
   },
 });
 
