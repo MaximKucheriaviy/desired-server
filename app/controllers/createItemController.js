@@ -4,7 +4,7 @@ const { upload } = require("../service/cloudinaryLoader");
 module.exports = async (req, res, next) => {
   try {
     const imageInfo = await upload(req.file.path);
-    const { name, brand, category, type } = req.body;
+    const { name, brand, category, type, price } = req.body;
     const result = await createItem({
       name,
       price,
