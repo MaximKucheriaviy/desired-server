@@ -14,6 +14,7 @@ const deleteItem = require("./deleteItemController");
 const updateItem = require("./updateItemController");
 
 const createStoredItem = require("./createStoredItemController");
+const deleteStoredItem = require("./deleteStoreItemController");
 
 module.exports = {
   getItemTypes,
@@ -28,4 +29,5 @@ module.exports = {
   deleteItem,
   updateItem,
   createStoredItem,
+  deleteStoredItem,
 };
