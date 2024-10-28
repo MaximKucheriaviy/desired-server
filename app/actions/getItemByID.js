@@ -1,4 +1,4 @@
-const { Item } = require("../model");
+const { Item, StoredItem } = require("../model");
 const createError = require("../service/createError");
 
 module.exports = async (id) => {
@@ -9,5 +9,12 @@ module.exports = async (id) => {
   if (!result) {
     throw createError(400, "No such item");
   }
-  return result;
+
+  const storedItems = await StoredItem.find({ itemID: id });
+  if (!storedItems) {
+    throw createError(400, "No such item");
+  }
+  const obj = JSON.parse(JSON.stringify(result));
+  obj.storedItems = storedItems;
+  return obj;
 };

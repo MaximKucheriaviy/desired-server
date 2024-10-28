@@ -11,6 +11,9 @@ const createItem = require("./createItem");
 const getItemById = require("./getItemByID");
 const getAllItems = require("./getAllItems");
 const deleteItem = require("./deleteItem");
+const updateItem = require("./updateItem");
+
+const createStoredItem = require("./createStoredItem");
 
 module.exports = {
   getItemTypes,
@@ -23,4 +26,6 @@ module.exports = {
   getItemById,
   getAllItems,
   deleteItem,
+  updateItem,
+  createStoredItem,
 };
