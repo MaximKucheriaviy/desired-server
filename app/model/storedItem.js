@@ -1,5 +1,10 @@
 const { Schema, model } = require("mongoose");
 
+const Size = new Schema({
+  name: String,
+  count: Number,
+});
+
 const StoredItem = new Schema({
   itemID: {
     type: Schema.Types.ObjectId,
@@ -7,10 +12,9 @@ const StoredItem = new Schema({
   },
   color: String,
   colorName: String,
-  sizes: [String],
-  count: {
-    type: Number,
-    default: 0,
+  sizes: {
+    type: [Size],
+    default: [],
   },
 });
 
