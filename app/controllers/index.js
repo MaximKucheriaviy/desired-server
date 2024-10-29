@@ -16,6 +16,7 @@ const updateItem = require("./updateItemController");
 const createStoredItem = require("./createStoredItemController");
 const deleteStoredItem = require("./deleteStoreItemController");
 const updateStoredItem = require("./updateStoredItemController");
+const updateItemImage = require("./updateItemImageController");
 
 module.exports = {
   getItemTypes,
@@ -25,6 +26,7 @@ module.exports = {
   getBrandById,
   getAllBrands,
   createItem,
+  updateItemImage,
   getItemByID,
   getAllItems,
   deleteItem,

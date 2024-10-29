@@ -10,5 +10,6 @@ module.exports = async (id, fields) => {
   if (!result) {
     throw createError(400, "Update error");
   }
+
   return result;
 };

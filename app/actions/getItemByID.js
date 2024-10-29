@@ -24,7 +24,6 @@ module.exports = async (id) => {
     return staItem;
   });
   const obj = JSON.parse(JSON.stringify(result));
-
   obj.storedItems = STA;
 
   return obj;
