@@ -14,7 +14,18 @@ module.exports = async (id) => {
   if (!storedItems) {
     throw createError(400, "No such item");
   }
+
+  const STA = JSON.parse(JSON.stringify(storedItems));
+  STA.map((staItem, index) => {
+    staItem.totalCount = storedItems[index].sizes.reduce(
+      (acc, size) => acc + size.count,
+      0
+    );
+    return staItem;
+  });
   const obj = JSON.parse(JSON.stringify(result));
-  obj.storedItems = storedItems;
+
+  obj.storedItems = STA;
+
   return obj;
 };
