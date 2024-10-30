@@ -6,6 +6,8 @@ const {
   deleteItem,
   updateItem,
   updateItemImage,
+  addImageToSet,
+  deleteImageFromSet,
 } = require("../controllers");
 const { uploader } = require("../middlewares");
 const router = Router();
@@ -16,5 +18,7 @@ router.get("/", getAllItems);
 router.delete("/", deleteItem);
 router.patch("/:id", updateItem);
 router.patch("/image/:id", uploader.single("Image"), updateItemImage);
+router.patch("/imageset/:id", uploader.single("Image"), addImageToSet);
+router.patch("/imageset/delete/:id", deleteImageFromSet);
 
 module.exports = router;

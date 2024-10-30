@@ -25,6 +25,7 @@ const ItemSchema = new Schema({
   image: {
     type: ImageSchema,
   },
+  imageSet: [ImageSchema],
   price: {
     type: Number,
     default: 0,
