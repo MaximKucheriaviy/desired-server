@@ -17,6 +17,10 @@ const createStoredItem = require("./createStoredItem");
 const deleteStoredItem = require("./deleteStoredItem");
 const updateStoreItem = require("./updateStoredItem");
 
+const createStyle = require("./createStyle");
+const getAllStyles = require("./getAllStyles");
+const deleteStyle = require("./deleteStyle");
+
 module.exports = {
   getItemTypes,
   getAllCategories,
@@ -32,4 +36,7 @@ module.exports = {
   createStoredItem,
   deleteStoredItem,
   updateStoreItem,
+  createStyle,
+  getAllStyles,
+  deleteStyle,
 };

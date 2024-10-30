@@ -33,6 +33,16 @@ const ItemSchema = new Schema({
     type: String,
     default: "",
   },
+  topStyle: {
+    type: Schema.Types.ObjectId || null,
+    ref: "style",
+    default: null,
+  },
+  bottomStyle: {
+    type: Schema.Types.ObjectId || null,
+    ref: "style",
+    default: null,
+  },
 });
 
 module.exports = model("item", ItemSchema);

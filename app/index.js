@@ -6,6 +6,7 @@ const {
   itemRouter,
   serviceRouter,
   storedItemRouter,
+  styleRouter,
 } = require("./routers");
 
 const app = express();
@@ -17,6 +18,7 @@ app.use("/api/brand", brandRouter);
 app.use("/api/item", itemRouter);
 app.use("/api/storeditem", storedItemRouter);
 app.use("/api/service", serviceRouter);
+app.use("/api/style", styleRouter);
 
 app.use("/", defaultError);
 app.use("/", errorCatcher);
