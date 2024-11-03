@@ -6,6 +6,10 @@ const ItemTypeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Category",
   },
+  url: {
+    type: String,
+    default: "",
+  },
 });
 
 module.exports = model("itemType", ItemTypeSchema);
