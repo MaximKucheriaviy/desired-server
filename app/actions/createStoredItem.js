@@ -2,16 +2,30 @@ const { StoredItem } = require("../model");
 const storedItem = require("../model/storedItem");
 const createError = require("../service/createError");
 
-module.exports = async ({ itemID, color, colorName, sizes, count }) => {
-  const result = await StoredItem.create({
-    itemID,
-    color,
-    colorName,
-    sizes,
-    count,
-  });
-  if (!result) {
-    throw createError(400, "Stored item creation error");
+module.exports = async ({
+  itemID,
+  barcode,
+  count,
+  article,
+  price,
+  priceUSD,
+}) => {
+  let storedItem = await StoredItem.findOne({ itemID, barcode });
+  if (storedItem) {
+    storedItem.count = count;
+    storedItem.price = price;
+    storedItem.priceUSD = priceUSD;
+    await storedItem.save();
+    return storedItem;
+  } else {
+    storedItem = await StoredItem.create({
+      itemID,
+      barcode,
+      count,
+      article,
+      price,
+      priceUSD,
+    });
   }
-  return result;
+  return storedItem;
 };

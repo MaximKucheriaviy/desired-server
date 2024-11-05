@@ -5,15 +5,17 @@ const {
   createBrand,
   getItemTypes,
   getAllCategories,
+  createStoredItem,
+  getItemByGroupCode,
 } = require("../actions");
 
 const parceCSV = require("../service/transformCSV");
+const createError = require("../service/createError");
 
 module.exports = async (req, res, next) => {
   try {
     let uploaded = 0;
     let errorUpload = 0;
-    let mbexist = 0;
 
     const file = req.file;
     const dataArr = await parceCSV(file.path);
@@ -22,7 +24,16 @@ module.exports = async (req, res, next) => {
     console.log(dataArr.length);
 
     for (let i = 0; i < dataArr.length; i++) {
-      const { name, color, groupCode } = dataArr[i];
+      const {
+        name,
+        color,
+        groupCode,
+        barcode,
+        article,
+        count,
+        price,
+        priceUSD,
+      } = dataArr[i];
       let brand = brands.find((brand) => brand.name === dataArr[i].brand);
       let category = await categories.find(
         (cat) => cat.name === dataArr[i].category
@@ -42,26 +53,30 @@ module.exports = async (req, res, next) => {
         brands = await getAllBrands();
       }
       try {
-        const item = await createItem({
-          name,
-          brand: brand._id,
-          category: category._id,
-          type: type._id,
-          color,
-          groupCode,
-        });
-        uploaded++;
-      } catch (err) {
-        if (err.code === 11000) {
-          console.log("exist continue");
-
-          mbexist++;
-        } else {
-          throw err;
+        let item = await getItemByGroupCode(groupCode);
+        if (!item) {
+          item = await createItem({
+            name,
+            brand: brand._id,
+            category: category._id,
+            type: type._id,
+            groupCode,
+            color,
+          });
         }
+        await createStoredItem({
+          itemID: item._id,
+          barcode,
+          article,
+          count,
+          price,
+          priceUSD,
+        });
+      } catch (err) {
+        console.log(err);
       }
     }
-    res.status(201).json({ uploaded, errorUpload, mbexist });
+    res.status(201).json({ uploaded, errorUpload });
   } catch (err) {
     next(err);
   }
