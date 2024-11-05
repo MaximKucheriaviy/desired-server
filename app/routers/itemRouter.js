@@ -8,11 +8,13 @@ const {
   updateItemImage,
   addImageToSet,
   deleteImageFromSet,
+  uploadNewItems,
 } = require("../controllers");
 const { uploader } = require("../middlewares");
 const router = Router();
 
 router.post("/", uploader.single("Image"), createItem);
+router.post("/csv/new", uploader.single("data"), uploadNewItems);
 router.get("/:id", getItemByID);
 router.get("/", getAllItems);
 router.delete("/", deleteItem);

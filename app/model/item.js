@@ -26,10 +26,6 @@ const ItemSchema = new Schema({
     type: ImageSchema,
   },
   imageSet: [ImageSchema],
-  price: {
-    type: Number,
-    default: 0,
-  },
   description: {
     type: String,
     default: "",
@@ -43,6 +39,14 @@ const ItemSchema = new Schema({
     type: Schema.Types.ObjectId || null,
     ref: "style",
     default: null,
+  },
+  color: {
+    type: String,
+    default: "",
+  },
+  groupCode: {
+    type: String,
+    unique: true,
   },
 });
 

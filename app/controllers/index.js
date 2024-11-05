@@ -26,6 +26,7 @@ const deleteStyle = require("./deleteStyleController");
 const getTopStyle = require("./getTopStyleController");
 const getBottomStyle = require("./getBottomStyleController");
 
+const uploadNewItems = require("./uploadNewItems");
 module.exports = {
   getItemTypes,
   getAllCategories,
@@ -49,4 +50,5 @@ module.exports = {
   getBottomStyle,
   addImageToSet,
   deleteImageFromSet,
+  uploadNewItems,
 };

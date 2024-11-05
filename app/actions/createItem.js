@@ -6,9 +6,10 @@ module.exports = async ({
   brand,
   category,
   type,
-  imageUrl,
-  imageID,
-  price,
+  imageUrl = "",
+  imageID = "",
+  color = "",
+  groupCode,
 }) => {
   const response = await Item.create({
     name,
@@ -16,7 +17,8 @@ module.exports = async ({
     category,
     type,
     image: { id: imageID, url: imageUrl },
-    price,
+    color,
+    groupCode,
   });
 
   if (!response) {

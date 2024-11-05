@@ -10,12 +10,11 @@ const StoredItem = new Schema({
     type: Schema.Types.ObjectId,
     ref: "item",
   },
-  color: String,
-  colorName: String,
-  sizes: {
-    type: [Size],
-    default: [],
-  },
+  barcode: String,
+  count: Number,
+  article: String,
+  price: Number,
+  priceUSD: Number,
 });
 
 module.exports = model("storedItem", StoredItem);
