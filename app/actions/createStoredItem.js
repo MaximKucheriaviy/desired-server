@@ -9,6 +9,7 @@ module.exports = async ({
   article,
   price,
   priceUSD,
+  size,
 }) => {
   let storedItem = await StoredItem.findOne({ itemID, barcode });
   if (storedItem) {
@@ -25,6 +26,7 @@ module.exports = async ({
       article,
       price,
       priceUSD,
+      size,
     });
   }
   return storedItem;

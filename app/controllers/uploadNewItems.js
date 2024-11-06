@@ -33,6 +33,7 @@ module.exports = async (req, res, next) => {
         count,
         price,
         priceUSD,
+        size,
       } = dataArr[i];
       let brand = brands.find((brand) => brand.name === dataArr[i].brand);
       let category = await categories.find(
@@ -71,6 +72,7 @@ module.exports = async (req, res, next) => {
           count,
           price,
           priceUSD,
+          size,
         });
       } catch (err) {
         console.log(err);

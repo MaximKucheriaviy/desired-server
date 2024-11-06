@@ -11,10 +11,11 @@ module.exports = async (id) => {
   }
 
   const storedItems = await StoredItem.find({ itemID: id });
+
   if (!storedItems) {
     throw createError(400, "No such item");
   }
-
+  const obj = JSON.parse(JSON.stringify(result));
   obj.storedItems = storedItems;
 
   return obj;

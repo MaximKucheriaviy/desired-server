@@ -13,6 +13,7 @@ const StoredItem = new Schema({
   article: String,
   price: Number,
   priceUSD: Number,
+  size: String,
 });
 
 module.exports = model("storedItem", StoredItem);
