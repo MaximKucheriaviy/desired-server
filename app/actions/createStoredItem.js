@@ -1,6 +1,4 @@
 const { StoredItem } = require("../model");
-const storedItem = require("../model/storedItem");
-const createError = require("../service/createError");
 
 module.exports = async ({
   itemID,
