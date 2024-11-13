@@ -1,22 +1,40 @@
 const { Item, StoredItem } = require("../model");
 const createError = require("../service/createError");
+const mongoose = require("mongoose");
 
 module.exports = async (id) => {
-  const result = await Item.findById(id)
-    .populate("brand")
-    .populate("type")
-    .populate("category");
+  const result = await Item.aggregate([
+    { $match: { _id: mongoose.Types.ObjectId(id) } },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "category",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+    {
+      $lookup: {
+        from: "itemtypes",
+        localField: "type",
+        foreignField: "_id",
+        as: "type",
+      },
+    },
+
+    {
+      $lookup: {
+        from: "storeditems",
+        localField: "_id",
+        foreignField: "itemID",
+        as: "storedItems",
+      },
+    },
+  ]);
+
   if (!result) {
     throw createError(400, "No such item");
   }
 
-  const storedItems = await StoredItem.find({ itemID: id });
-
-  if (!storedItems) {
-    throw createError(400, "No such item");
-  }
-  const obj = JSON.parse(JSON.stringify(result));
-  obj.storedItems = storedItems;
-
-  return obj;
+  return result[0];
 };
