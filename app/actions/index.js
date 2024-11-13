@@ -15,6 +15,7 @@ const updateItem = require("./updateItem");
 const addImageToSet = require("./addImageToSet");
 const deleteImageFromSet = require("./deleteImageFromSet");
 const getItemByGroupCode = require("./getItemByGrounpCode");
+const getSetOfItems = require("./getSetOfItems");
 
 const createStoredItem = require("./createStoredItem");
 const deleteStoredItem = require("./deleteStoredItem");
@@ -45,4 +46,5 @@ module.exports = {
   addImageToSet,
   deleteImageFromSet,
   getItemByGroupCode,
+  getSetOfItems,
 };

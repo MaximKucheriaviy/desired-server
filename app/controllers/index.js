@@ -14,6 +14,7 @@ const deleteItem = require("./deleteItemController");
 const updateItem = require("./updateItemController");
 const addImageToSet = require("./addImageToSetController");
 const deleteImageFromSet = require("./deleteImageFromSetController");
+const getSetOfItems = require("./getSetOfItemsController");
 
 const createStoredItem = require("./createStoredItemController");
 const deleteStoredItem = require("./deleteStoreItemController");
@@ -51,4 +52,5 @@ module.exports = {
   addImageToSet,
   deleteImageFromSet,
   uploadNewItems,
+  getSetOfItems,
 };

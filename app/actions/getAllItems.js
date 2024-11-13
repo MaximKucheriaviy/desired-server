@@ -71,7 +71,6 @@ module.exports = async (params, page, limit) => {
     { $skip: (page - 1) * limit },
     { $limit: Number.parseInt(limit) },
   ]);
-  console.log(result);
 
   if (!result) {
     throw createError(400, "Error items");
