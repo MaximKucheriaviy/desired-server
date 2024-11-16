@@ -30,6 +30,12 @@ module.exports = async (id) => {
         as: "storedItems",
       },
     },
+    {
+      $unwind: "$category",
+    },
+    {
+      $unwind: "$type",
+    },
   ]);
 
   if (!result) {

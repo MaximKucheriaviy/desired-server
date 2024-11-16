@@ -24,6 +24,8 @@ const updateStoreItem = require("./updateStoredItem");
 const createStyle = require("./createStyle");
 const getAllStyles = require("./getAllStyles");
 const deleteStyle = require("./deleteStyle");
+const getTopStyles = require("./getTopStyles");
+const getBottomStyles = require("./getBottomStyles");
 
 module.exports = {
   getItemTypes,
@@ -47,4 +49,6 @@ module.exports = {
   deleteImageFromSet,
   getItemByGroupCode,
   getSetOfItems,
+  getTopStyles,
+  getBottomStyles,
 };

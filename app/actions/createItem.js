@@ -10,6 +10,8 @@ module.exports = async ({
   imageID = "",
   color = "",
   groupCode,
+  topStyle,
+  bottomStyle,
 }) => {
   const response = await Item.create({
     name,
@@ -19,6 +21,8 @@ module.exports = async ({
     image: { id: imageID, url: imageUrl },
     color,
     groupCode,
+    topStyle: topStyle || null,
+    bottomStyle: bottomStyle || null,
   });
 
   if (!response) {

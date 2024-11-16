@@ -7,6 +7,9 @@ const {
   getAllCategories,
   createStoredItem,
   getItemByGroupCode,
+  getTopStyles,
+  getBottomStyles,
+  createStyle,
 } = require("../actions");
 
 const parceCSV = require("../service/transformCSV");
@@ -16,12 +19,13 @@ module.exports = async (req, res, next) => {
   try {
     let uploaded = 0;
     let errorUpload = 0;
+    let barcodeDuplicate = 0;
 
     const file = req.file;
+
     const dataArr = await parceCSV(file.path);
     let brands = await getAllBrands();
     const categories = await getAllCategories();
-    console.log(dataArr.length);
 
     for (let i = 0; i < dataArr.length; i++) {
       const {
@@ -34,8 +38,30 @@ module.exports = async (req, res, next) => {
         price,
         priceUSD,
         size,
+        topStyle,
+        bottomStyle,
       } = dataArr[i];
       let brand = brands.find((brand) => brand.name === dataArr[i].brand);
+      let topStyleItem;
+      let bottomStyleItem;
+      if (topStyle) {
+        topStyleItem = (await getTopStyles()).find(
+          (item) => item.name.toLowerCase() === topStyle.toLowerCase()
+        );
+        if (!topStyleItem) {
+          console.log("createing top style", topStyle);
+          topStyleItem = await createStyle(topStyle, "top");
+        }
+      }
+      if (bottomStyle) {
+        bottomStyleItem = (await getBottomStyles()).find(
+          (item) => item.name.toLowerCase() === bottomStyle.toLowerCase()
+        );
+        if (!bottomStyleItem) {
+          console.log("createing bottom style", bottomStyle);
+          bottomStyleItem = await createStyle(bottomStyle, "bottom");
+        }
+      }
       let category = await categories.find(
         (cat) => cat.name === dataArr[i].category
       );
@@ -63,6 +89,8 @@ module.exports = async (req, res, next) => {
             type: type._id,
             groupCode,
             color,
+            topStyle: topStyleItem ? topStyleItem._id : null,
+            bottomStyle: bottomStyleItem ? bottomStyleItem._id : null,
           });
         }
         await createStoredItem({
@@ -76,9 +104,13 @@ module.exports = async (req, res, next) => {
         });
       } catch (err) {
         console.log(err);
+        if (err.code === 11000) {
+          barcodeDuplicate++;
+        }
       }
     }
-    res.status(201).json({ uploaded, errorUpload });
+    console.log({ uploaded, errorUpload, barcodeDuplicate });
+    res.status(201).json({ uploaded, errorUpload, barcodeDuplicate });
   } catch (err) {
     next(err);
   }
