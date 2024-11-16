@@ -1,4 +1,3 @@
-const { log } = require("console");
 const fs = require("fs/promises");
 
 function toAlphanumeric(str) {
@@ -42,7 +41,6 @@ module.exports = async (path) => {
   const names = data[0].map((item) => toAlphanumeric(item).trim());
   const result = [];
   console.log(data.length);
-  console.log(data);
 
   for (let i = 1; i < data.length; i++) {
     if (

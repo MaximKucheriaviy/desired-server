@@ -102,6 +102,7 @@ module.exports = async (req, res, next) => {
           priceUSD,
           size,
         });
+        uploaded++;
       } catch (err) {
         console.log(err);
         if (err.code === 11000) {
