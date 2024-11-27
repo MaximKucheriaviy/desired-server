@@ -4,6 +4,7 @@ const Brand = require("./brand");
 const Item = require("./item");
 const StoredItem = require("./storedItem");
 const Style = require("./style");
+const Order = require("./order");
 
 module.exports = {
   Category,
@@ -12,4 +13,5 @@ module.exports = {
   Item,
   StoredItem,
   Style,
+  Order,
 };

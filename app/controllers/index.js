@@ -28,6 +28,8 @@ const getTopStyle = require("./getTopStyleController");
 const getBottomStyle = require("./getBottomStyleController");
 
 const uploadNewItems = require("./uploadNewItems");
+
+const createOrder = require("./createOrderController");
 module.exports = {
   getItemTypes,
   getAllCategories,
@@ -53,4 +55,5 @@ module.exports = {
   deleteImageFromSet,
   uploadNewItems,
   getSetOfItems,
+  createOrder,
 };

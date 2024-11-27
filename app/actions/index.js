@@ -27,6 +27,9 @@ const deleteStyle = require("./deleteStyle");
 const getTopStyles = require("./getTopStyles");
 const getBottomStyles = require("./getBottomStyles");
 
+const createOrderController = require("./createOrder");
+const createOrder = require("./createOrder");
+
 module.exports = {
   getItemTypes,
   getAllCategories,
@@ -51,4 +54,5 @@ module.exports = {
   getSetOfItems,
   getTopStyles,
   getBottomStyles,
+  createOrder,
 };
