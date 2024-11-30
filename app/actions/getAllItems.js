@@ -3,8 +3,18 @@ const createError = require("../service/createError");
 const mongoose = require("mongoose");
 
 module.exports = async (params, page, limit) => {
-  const count = await Item.count(params);
-  const { category, type } = params;
+  const { category, type, sortType, minp, maxp } = params;
+
+  let sortQuery = { name: 1 };
+  switch (sortType) {
+    case "HPS":
+      sortQuery = { price: 1 };
+      break;
+    case "LPS":
+      sortQuery = { price: -1 };
+      break;
+  }
+
   const p = {};
   if (category) {
     p.category = mongoose.Types.ObjectId(category);
@@ -13,7 +23,7 @@ module.exports = async (params, page, limit) => {
     p.type = mongoose.Types.ObjectId(type);
   }
 
-  const result = await Item.aggregate([
+  const aggQuery = [
     { $match: p },
     {
       $lookup: {
@@ -67,7 +77,37 @@ module.exports = async (params, page, limit) => {
         price: { $max: "$storedItems.priceUSD" },
       },
     },
-    { $sort: { price: -1 } },
+  ];
+
+  const priceLimits = await Item.aggregate([
+    ...aggQuery,
+    {
+      $group: {
+        _id: null,
+        maxPrice: { $max: "$price" },
+        minPrice: { $min: "$price" },
+      },
+    },
+  ]);
+
+  if (minp && maxp && Number.parseInt(minp) < Number.parseInt(maxp)) {
+    aggQuery.push({
+      $match: {
+        price: { $gte: Number.parseInt(minp), $lte: Number.parseInt(maxp) },
+      },
+    });
+  }
+
+  let count = await Item.aggregate([...aggQuery, { $count: "count" }]);
+  if (count.length > 0) {
+    count = count[0].count;
+  } else {
+    count = 0;
+  }
+
+  const result = await Item.aggregate([
+    ...aggQuery,
+    { $sort: sortQuery },
     { $skip: (page - 1) * limit },
     { $limit: Number.parseInt(limit) },
   ]);
@@ -77,7 +117,9 @@ module.exports = async (params, page, limit) => {
   }
   return {
     data: result,
-    count: count,
+    count,
+    maxPrice: priceLimits[0] ? priceLimits[0].maxPrice : null,
+    minPrice: priceLimits[0] ? priceLimits[0].minPrice : null,
     page: page,
     perPage: limit,
     totalPages: Math.ceil(count / limit),
