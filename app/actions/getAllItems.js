@@ -3,7 +3,7 @@ const createError = require("../service/createError");
 const mongoose = require("mongoose");
 
 module.exports = async (params, page, limit) => {
-  const { category, type, sortType, minp, maxp } = params;
+  const { category, name, type, sortType, minp, maxp } = params;
 
   let sortQuery = { name: 1 };
   switch (sortType) {
@@ -21,6 +21,9 @@ module.exports = async (params, page, limit) => {
   }
   if (type) {
     p.type = mongoose.Types.ObjectId(type);
+  }
+  if (name) {
+    p.name = { $regex: name, $options: "i" };
   }
 
   const aggQuery = [
