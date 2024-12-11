@@ -30,6 +30,7 @@ const getBottomStyle = require("./getBottomStyleController");
 const uploadNewItems = require("./uploadNewItems");
 
 const createOrder = require("./createOrderController");
+const getAllOrders = require("./getAllOrdersController");
 module.exports = {
   getItemTypes,
   getAllCategories,
@@ -56,4 +57,5 @@ module.exports = {
   uploadNewItems,
   getSetOfItems,
   createOrder,
+  getAllOrders,
 };

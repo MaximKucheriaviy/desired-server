@@ -29,6 +29,7 @@ const getBottomStyles = require("./getBottomStyles");
 
 const createOrderController = require("./createOrder");
 const createOrder = require("./createOrder");
+const getAllOrders = require("./getAllOrders");
 
 module.exports = {
   getItemTypes,
@@ -55,4 +56,5 @@ module.exports = {
   getTopStyles,
   getBottomStyles,
   createOrder,
+  getAllOrders,
 };

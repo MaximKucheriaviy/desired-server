@@ -20,6 +20,7 @@ const Order = new Schema({
     type: [Schema.Types.ObjectId],
     ref: storedItem,
   },
+  date: Number,
 });
 
 Order.plugin(AutoIncrement, { inc_field: "ordernNumber" });
