@@ -20,6 +20,11 @@ const Order = new Schema({
     type: [Schema.Types.ObjectId],
     ref: storedItem,
   },
+  status: {
+    type: String,
+    enum: ["В обробці", "Відправлено", "Завершено"],
+    default: "В обробці",
+  },
   date: Number,
 });
 

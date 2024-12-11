@@ -9,9 +9,6 @@ module.exports = async ({
   paymentType,
   items,
 }) => {
-  const d = Date.now();
-  console.log(d);
-
   const result = await Order.create({
     name,
     sername,
